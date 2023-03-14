@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchInput from "./SearchInput";
+import Link from "next/link";
+import styles from "./Search.module.css";
 
 const Search = (props) => {
 	const { search } = props;
@@ -25,10 +27,17 @@ const Search = (props) => {
 	return (
 		<div>
 			<SearchInput placeholder="Search for stock" onChange={setQuery} />
-			{searchRes &&
-				searchRes.map((item, index) => {
-					return <div key={item + index}>{item[Object.keys(item)[0]]}</div>;
-				})}
+			<div className={styles.res_container}>
+				{searchRes &&
+					searchRes.map((item, index) => {
+						const symbol = item[Object.keys(item)[0]];
+						return (
+							<Link href={`/result/${symbol}`} key={item + index}>
+								{symbol}
+							</Link>
+						);
+					})}
+			</div>
 		</div>
 	);
 };
