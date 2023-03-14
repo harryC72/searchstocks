@@ -12,7 +12,6 @@ const Search = (props) => {
 		const searchFunc = async (arg) => {
 			const res = await search(arg);
 			setSearchRes(res.response.data.bestMatches);
-			console.log("SET RES FROM USEEFFECT", res.response.data.bestMatches);
 		};
 
 		if (query.length >= 2) {

@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import Search from "./../Search/Search";
+import Search from "../components/Search/Search";
 import { searchStocks } from "./../services/searchStocks";
 const key = process.env.NEXT_PUBLIC_ALPHA_API_KEY;
 

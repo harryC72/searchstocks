@@ -1,10 +1,10 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { searchStocks } from "./../../services/searchStocks";
+import { getChartData, searchStocks } from "./../../services/searchStocks";
+import LineChart from "../../components/Chart/LineChart";
 
 const Stock = (props) => {
-	const { data } = props;
-	console.log("DATA FROM STOCK PAGE", Object.entries(data.bestMatches[0]));
+	const { data, chartData } = props;
 	const traverseData = Object.entries(data.bestMatches[0]);
 	const router = useRouter();
 	const { stock } = router.query;
@@ -23,6 +23,7 @@ const Stock = (props) => {
 						</div>
 					);
 				})}
+			<LineChart data={chartData} />
 		</>
 	);
 };
@@ -30,10 +31,12 @@ const Stock = (props) => {
 export async function getServerSideProps(context) {
 	const { stock } = context.query;
 	const data = await searchStocks(stock);
+	const chartData = await getChartData(stock);
 
 	return {
 		props: {
 			data: data.response.data,
+			chartData,
 		},
 	};
 }
