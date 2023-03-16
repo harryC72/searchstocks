@@ -2,3 +2,9 @@
 	font-weight: bold;
 	color: brown;
 }
+
+@media only screen and (max-width: 768px) {
+	.logo{
+		margin-bottom: 30px;
+	}
+	}

@@ -13,10 +13,12 @@ const arvo = Arvo({
 	subsets: ["latin"],
 });
 
+const logoString = "Harry's Finance";
+
 export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<div className={cabin.className}>
-			<div className={`${arvo.className} ${styles.logo}`}>Harry's Finance</div>
+			<div className={`${arvo.className} ${styles.logo}`}>{logoString}</div>
 			<Component {...pageProps} />
 		</div>
 	);
