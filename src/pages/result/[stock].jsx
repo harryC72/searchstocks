@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { getChartData, searchStocks } from "./../../services/searchStocks";
 import LineChart from "../../components/Chart/LineChart";
 import styles from "../../styles/Stock.module.css";
+import Link from "next/link";
+import { AppContext } from "./../../context/AppContext";
 
 const Stock = (props) => {
 	const { data, chartData } = props;
 	const traverseData = Object.entries(data.bestMatches[0]);
 	const router = useRouter();
 	const { stock } = router.query;
+	const { setSavedStocks } = useContext(AppContext);
+
+	const saveStockData = () => {
+		let itemName = "";
+		if (stock && stock.length > 0) itemName = stock?.toString();
+		setSavedStocks((prev) => [...prev, itemName]);
+
+		window.localStorage.setItem(itemName, JSON.stringify(traverseData));
+	};
 
 	return (
 		<div className={styles.stock_container}>
 			<div>
 				<div className={styles.result_box}>
 					<h2>STOCK INFO {stock}</h2>
+					<button onClick={() => saveStockData()}>Save</button>
 					{traverseData &&
 						traverseData.map((item, index) => {
 							let string = item[0].substring(2).trim();
@@ -31,6 +43,7 @@ const Stock = (props) => {
 					</div>
 				</div>
 			</div>
+			<Link href={`/result/saved`}>Saved items</Link>
 		</div>
 	);
 };
