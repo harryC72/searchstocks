@@ -1,0 +1,11 @@
+.heading{
+	margin-top: 10px;
+}
+
+.saved_stock{
+	margin-top: 20px;
+	border: 1px solid lightgrey;
+	border-radius: 20px;
+	padding: 20px;
+	width: 200px;
+}

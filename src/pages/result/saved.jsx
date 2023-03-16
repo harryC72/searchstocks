@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "./../../context/AppContext";
 import getType from "./../../helperFunctions/getType";
 import Result from "../../components/Result/Result";
+import styles from "../../styles/Saved.module.css";
 
 const Saved = () => {
 	const [savedItems, setSavedItems] = useState([]);
@@ -29,22 +30,16 @@ const Saved = () => {
 
 	return (
 		<>
-			<h2>Saved Stocks</h2>
+			<h2 className={styles.heading}>Saved Stocks</h2>
 			<div>
 				{data.map((innerArray, index) => (
-					<div key={index}>
+					<div key={index} className={styles.saved_stock}>
 						{innerArray.map((item, index) => {
 							const type = getType(item);
 							return <Result item={item} key={item[0] + index} type={type} />;
 						})}
 					</div>
 				))}
-				{/* {data[0] &&
-					data[0].length > 0 &&
-					data[0].map((item, index) => {
-						const type = getType(item);
-						return <Result item={item} key={item[0] + index} type={type} />;
-					})} */}
 			</div>
 		</>
 	);
