@@ -39,7 +39,9 @@ const Stock = (props) => {
 					</div>
 				</div>
 			</div>
-			<Link href={`/result/saved`}>Saved items</Link>
+			<Link className={styles.link} href={`/result/saved`}>
+				Saved items
+			</Link>
 		</div>
 	);
 };
