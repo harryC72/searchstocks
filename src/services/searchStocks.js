@@ -24,13 +24,9 @@ export const getChartData = async (input) => {
 		const startDate = keys[0];
 		const endDate = keys[keys.length - 1];
 
-		console.log("START & END", startDate, endDate);
-
 		const dataArr = [];
 
 		for (let timestamp in timeSeriesData) {
-			console.log("TIMEZ", timestamp);
-
 			const openData = parseFloat(timeSeriesData[timestamp]["1. open"]);
 			const highData = parseFloat(timeSeriesData[timestamp]["2. high"]);
 			const lowData = parseFloat(timeSeriesData[timestamp]["3. low"]);
@@ -56,7 +52,6 @@ export const getChartData = async (input) => {
 			);
 		}
 
-		console.log("DATA ARR", dataArr);
 		const financialItem = {
 			symbol: finItemSymbol,
 			dataArr,

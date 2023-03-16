@@ -5,13 +5,15 @@ import LineChart from "../../components/Chart/LineChart";
 import styles from "../../styles/Stock.module.css";
 import Link from "next/link";
 import { AppContext } from "./../../context/AppContext";
+import getType from "../../helperFunctions/getType";
+import Result from "./../../components/Result/Result";
 
 const Stock = (props) => {
 	const { data, chartData } = props;
 	const traverseData = Object.entries(data.bestMatches[0]);
 	const router = useRouter();
 	const { stock } = router.query;
-	const { setSavedStocks } = useContext(AppContext);
+	const { savedStocks, setSavedStocks } = useContext(AppContext);
 
 	const saveStockData = () => {
 		let itemName = "";
@@ -29,14 +31,8 @@ const Stock = (props) => {
 					<button onClick={() => saveStockData()}>Save</button>
 					{traverseData &&
 						traverseData.map((item, index) => {
-							let string = item[0].substring(2).trim();
-							const type = string.charAt(0).toUpperCase() + string.slice(1);
-							return (
-								<div key={item[0] + index}>
-									<b>{type}: </b>
-									{item[1]}
-								</div>
-							);
+							const type = getType(item);
+							return <Result item={item} key={item[0] + index} type={type} />;
 						})}
 					<div className={styles.line_chart}>
 						<LineChart data={chartData} />
