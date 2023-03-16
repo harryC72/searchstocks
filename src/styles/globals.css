@@ -1,0 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin');
+h1,h2, p{
+	margin: 0;
+}
+* {box-sizing:border-box;}

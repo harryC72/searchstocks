@@ -18,36 +18,48 @@ export const getChartData = async (input) => {
 		const { data } = await axios.get(url);
 		let finItemSymbol = input;
 
-		let financialChartXValuesFunction = [];
-		let financialChartCloseValuesFunction = [];
-		let financialChartOpenValuesFunction = [];
-		let financialChartHighValuesFunction = [];
-		let financialChartLowValuesFunction = [];
+		const timeSeriesData = data["Time Series (Daily)"];
 
-		console.log("DATA NOW", data);
+		const keys = Object.keys(timeSeriesData);
+		const startDate = keys[0];
+		const endDate = keys[keys.length - 1];
 
-		for (let key in data["Time Series (Daily)"]) {
-			financialChartXValuesFunction.push(key);
-			financialChartCloseValuesFunction.push(
-				data["Time Series (Daily)"][key]["4. close"]
-			);
-			financialChartOpenValuesFunction.push(
-				data["Time Series (Daily)"][key]["1. open"]
-			);
-			financialChartHighValuesFunction.push(
-				data["Time Series (Daily)"][key]["2. high"]
-			);
-			financialChartLowValuesFunction.push(
-				data["Time Series (Daily)"][key]["3. low"]
+		console.log("START & END", startDate, endDate);
+
+		const dataArr = [];
+
+		for (let timestamp in timeSeriesData) {
+			console.log("TIMEZ", timestamp);
+
+			const openData = parseFloat(timeSeriesData[timestamp]["1. open"]);
+			const highData = parseFloat(timeSeriesData[timestamp]["2. high"]);
+			const lowData = parseFloat(timeSeriesData[timestamp]["3. low"]);
+			const closeData = parseFloat(timeSeriesData[timestamp]["4. close"]);
+
+			dataArr.push(
+				{
+					x: new Date(timestamp).getTime(),
+					y: openData,
+				},
+				{
+					x: new Date(timestamp).getTime(),
+					y: highData,
+				},
+				{
+					x: new Date(timestamp).getTime(),
+					y: lowData,
+				},
+				{
+					x: new Date(timestamp).getTime(),
+					y: closeData,
+				}
 			);
 		}
+
+		console.log("DATA ARR", dataArr);
 		const financialItem = {
 			symbol: finItemSymbol,
-			financialChartXValues: financialChartXValuesFunction,
-			financialChartCloseValues: financialChartCloseValuesFunction,
-			financialChartOpenValues: financialChartOpenValuesFunction,
-			financialChartHighValues: financialChartHighValuesFunction,
-			financialChartLowValues: financialChartLowValuesFunction,
+			dataArr,
 		};
 
 		return { financialItem, error: null };

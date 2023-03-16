@@ -1,4 +1,23 @@
+
+.main_container{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	width: 200px;
+}
+
 .res_container{
 	display: flex;
 	flex-direction: column;
+	margin: 0 12px;
+}
+
+.link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.link:hover,
+.link:focus {
+  text-decoration: underline;
 }

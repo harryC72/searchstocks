@@ -4,27 +4,12 @@ import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 const LineChart = (props) => {
 	const { data, stockName } = props;
-	const {
-		financialChartXValues,
-		financialChartOpenValues,
-		financialChartCloseValues,
-		financialChartHighValues,
-		financialChartLowValues,
-	} = data.financialItem;
-	console.log("DATA FROM LINE CHART", data);
+	const { dataArr } = data.financialItem;
+
 	const options = {
-		//data on the x-axis
 		chart: { id: "bar-chart" },
 		xaxis: {
-			categories: [financialChartXValues],
-		},
-		yaxis: {
-			categories: [
-				financialChartOpenValues,
-				financialChartCloseValues,
-				financialChartHighValues,
-				financialChartLowValues,
-			],
+			type: "datetime",
 		},
 	};
 	return (
@@ -33,13 +18,13 @@ const LineChart = (props) => {
 				<Chart
 					options={options}
 					series={[
-						financialChartOpenValues,
-						financialChartCloseValues,
-						financialChartHighValues,
-						financialChartLowValues,
+						{
+							data: dataArr,
+						},
 					]}
 					type="line"
 					height={350}
+					width={350}
 				/>
 			)}
 		</div>

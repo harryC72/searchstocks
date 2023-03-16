@@ -24,14 +24,18 @@ const Search = (props) => {
 	}, [query, search]);
 
 	return (
-		<div>
-			<SearchInput placeholder="Search for stock" onChange={setQuery} />
+		<div className={styles.main_container}>
+			<SearchInput placeholder="Search for stock..." onChange={setQuery} />
 			<div className={styles.res_container}>
 				{searchRes &&
 					searchRes.map((item, index) => {
 						const symbol = item[Object.keys(item)[0]];
 						return (
-							<Link href={`/result/${symbol}`} key={item + index}>
+							<Link
+								className={styles.link}
+								href={`/result/${symbol}`}
+								key={item + index}
+							>
 								{symbol}
 							</Link>
 						);
